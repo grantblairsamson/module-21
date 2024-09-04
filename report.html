@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>report</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h3 id="report-on-the-neural-network-model---module-21">Report on the Neural Network Model - Module 21</h3>
+<h1 id="alphabet-soup-charity-deep-learning-model">Alphabet Soup Charity Deep Learning Model</h1>
+<h2 id="overview-of-the-analysis">Overview of the Analysis</h2>
+<p>The goal of this analysis is to create a deep learning model that predicts whether an applicant for charity funding will be successful. Alphabet Soup, a nonprofit foundation, seeks to better allocate funds by identifying applicants with a high likelihood of success based on historical data. Using a dataset of over 34,000 applicants, the model is designed to act as a binary classifier, determining whether an applicant will succeed (1) or fail (0) if funded.</p>
+<hr>
+<h2 id="data-preprocessing">Data Preprocessing</h2>
+<p><strong>What variable(s) are the target(s) for your model?</strong></p>
+<ul>
+<li>The target variable for this model is <code>IS_SUCCESSFUL</code>, which is a binary variable that indicates whether the funding recipient was successful (1) or not (0).</li>
+</ul>
+<p><strong>What variable(s) are the features for your model?</strong></p>
+<ul>
+<li>The feature variables include all columns except for <code>EIN</code> and <code>NAME</code>. The relevant features used for prediction are:
+<ul>
+<li><code>APPLICATION_TYPE</code></li>
+<li><code>AFFILIATION</code></li>
+<li><code>CLASSIFICATION</code></li>
+<li><code>USE_CASE</code></li>
+<li><code>ORGANIZATION</code></li>
+<li><code>STATUS</code></li>
+<li><code>INCOME_AMT</code></li>
+<li><code>SPECIAL_CONSIDERATIONS</code></li>
+<li><code>ASK_AMT</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>What variable(s) should be removed from the input data because they are neither targets nor features?</strong></p>
+<ul>
+<li>The <code>EIN</code> and <code>NAME</code> columns were removed because they are identifiers and do not provide predictive value for the model. Including these columns would only introduce unnecessary noise and complexity to the data.</li>
+</ul>
+<hr>
+<h2 id="compiling-training-and-evaluating-the-model">Compiling, Training, and Evaluating the Model</h2>
+<p><strong>How many neurons, layers, and activation functions did you select for your neural network model, and why?</strong></p>
+<ul>
+<li>The neural network was constructed with two hidden layers:
+<ul>
+<li>The first hidden layer consists of <strong>80 neurons</strong> using the <strong>ReLU</strong> (Rectified Linear Unit) activation function. ReLU is chosen because it is effective in handling non-linear relationships and mitigating the vanishing gradient problem.</li>
+<li>The second hidden layer consists of <strong>30 neurons</strong>, also with the <strong>ReLU</strong> activation function, to further extract relevant patterns from the data.</li>
+<li>The output layer consists of <strong>1 neuron</strong> using the <strong>sigmoid</strong> activation function, which is appropriate for binary classification tasks, as it outputs probabilities between 0 and 1.</li>
+</ul>
+</li>
+</ul>
+<p>The number of neurons and layers was selected after experimenting with different architectures to balance the model’s complexity and performance. The goal was to have enough capacity to capture relationships in the data without overfitting.</p>
+<p><strong>Were you able to achieve the target model performance?</strong></p>
+<ul>
+<li>The target model performance was to achieve at least <strong>75% accuracy</strong>. The final model achieved an accuracy of <strong>72.90%</strong>, which falls slightly short of the desired performance. While the model does show a solid ability to predict successful applicants, it can be further optimized for improved accuracy.</li>
+</ul>
+<p><strong>What steps did you take in your attempts to increase model performance?</strong></p>
+<p>To improve model performance, several strategies were employed:</p>
+<ul>
+<li><strong>Combining rare categories</strong>: For features like <code>APPLICATION_TYPE</code>, rare categories with fewer than 500 occurrences were combined into an “Other” category to reduce noise and simplify the model’s learning process.</li>
+<li><strong>Feature scaling</strong>: A <code>StandardScaler</code> was used to normalize numeric features, ensuring that they were on similar scales, which improves the model’s ability to converge.</li>
+<li><strong>Neural network tuning</strong>: The architecture was adjusted to include two hidden layers, which provide sufficient learning capacity. The number of neurons in each layer was also fine-tuned to avoid underfitting or overfitting the data.</li>
+<li><strong>Training duration</strong>: The model was trained for <strong>50 epochs</strong> to allow enough time for the weights to stabilize, ensuring convergence while avoiding overfitting.</li>
+</ul>
+<hr>
+<h2 id="results">Results</h2>
+<p>Here are the key results from the final model:</p>
+<ul>
+<li><strong>Accuracy</strong>: The model achieved an accuracy of <strong>72.90%</strong>.</li>
+<li><strong>Precision</strong>: The precision for predicting a “Successful” outcome (1) was <strong>0.73</strong>. This means that 73% of the predicted successful applicants were actually successful.</li>
+<li><strong>Recall</strong>: The recall for predicting a “Successful” outcome (1) was <strong>0.79</strong>. This indicates that 79% of the actual successful applicants were correctly identified by the model.</li>
+</ul>
+<p>These results show that the model performs reasonably well, particularly in identifying successful applicants, though further optimization could improve precision and overall accuracy.</p>
+<hr>
+<h2 id="summary">Summary</h2>
+<p>The deep learning model developed for Alphabet Soup achieved an accuracy of <strong>72.90%</strong> in predicting the success of charity funding applicants. While the model shows good performance, particularly in terms of recall (the ability to correctly identify successful applicants), it does not meet the target accuracy of 75%. Several optimization techniques were attempted, including adjusting the neural network architecture, scaling features, and combining rare categories.</p>
+<h3 id="recommendation-for-an-alternative-model">Recommendation for an Alternative Model</h3>
+<p>While the neural network model shows promise, other machine learning algorithms might be better suited for this classification problem. A <strong>Random Forest Classifier</strong> or <strong>Gradient Boosting Machine (GBM)</strong> could be an effective alternative for several reasons:</p>
+<ul>
+<li><strong>Interpretability</strong>: Random Forests and GBMs provide insight into the importance of each feature, helping Alphabet Soup understand which factors are most important in predicting success.</li>
+<li><strong>Handling of categorical variables</strong>: These models handle categorical data without requiring as much preprocessing (such as one-hot encoding), which could simplify the workflow and improve performance.</li>
+<li><strong>Robustness</strong>: Both models are less prone to overfitting and can handle non-linear relationships well, potentially leading to better generalization on unseen data.</li>
+</ul>
+<p>In summary, while the deep learning model offers a solid starting point, experimenting with Random Forests or Gradient Boosting models could lead to improved performance and greater interpretability.</p>
+</div>
+</body>
+
+</html>
